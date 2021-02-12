@@ -5,10 +5,11 @@ date: "2/10/2021"
 output:
   html_document: default
   pdf_document: default
+  github_document: default
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 library(nycflights13)
 library(ggplot2)
 library(dplyr)
@@ -36,7 +37,7 @@ colSums(is.na(flights))
 
 This shows that 8255 flights have missing dep time. some other missing variables are arr_time, dep_delay, arr_delay, air_time, tailnum. a lot of these values must be na because the flight got cancelled. When the flight didn't take off, there wouldn't be any airtime values or delay either.
 
-##2)
+##2) (figure 1)
 ```{r}
 flight_small <- select(flights,
                        dep_time,
@@ -49,11 +50,9 @@ mutate(
        minute_sched_dep_time = ((sched_dep_time %/% 100 *60) + (sched_dep_time %% 100))
        
 )
-
-head(flight_small,5)
-
 ```
 
+The table won't knit because it is too large, I have included a screenshot of it at the end of this document
 
 ###3)
 
@@ -97,3 +96,7 @@ flights %>%
 From first glance, it seems like the flights cancelled goes up seasonally. Flights could be cancelled because of weather, lack of tickets sold, engine failure a whole vareity of possible reasons. However, the reason for the seasonallity could be mor towards weather.
 
 It seems like when the delay is higher, the chances of a cancelled flight could be more probable. It seems like there is a relation in the sense that towards the end of the year, there is more delay and more cancelled flights. 
+
+
+
+![Figure 1: flight_small](table.PNG)
